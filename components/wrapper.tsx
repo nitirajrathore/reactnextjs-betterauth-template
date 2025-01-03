@@ -4,8 +4,8 @@ import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { Logo } from "./logo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import App from "next/app";
 import { AppName } from "./app-name";
+import {ProfileOrSignIn}  from "@/components/profile-signin";
 
 export function Wrapper(props: { children: React.ReactNode }) {
 	return (
@@ -20,6 +20,7 @@ export function Wrapper(props: { children: React.ReactNode }) {
 				</Link>
 				<div className="z-50 flex items-center">
 					<ThemeToggle />
+					<ProfileOrSignIn />
 				</div>
 			</div>
 			<div className="mt-20 lg:w-7/12 w-full">{props.children}</div>

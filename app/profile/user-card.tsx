@@ -9,6 +9,7 @@ import {
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
+import { SignOutBtn } from "@/components/sign-out-btn";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
 import { Checkbox } from "@/components/ui/checkbox";
 import {
@@ -23,7 +24,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PasswordInput } from "@/components/ui/password-input";
-import { client, signOut, useSession } from "@/lib/auth-client";
+import { client, useSession } from "@/lib/auth-client";
 import { Session } from "@/lib/auth-types";
 import { MobileIcon } from "@radix-ui/react-icons";
 import {
@@ -31,11 +32,7 @@ import {
 	Fingerprint,
 	Laptop,
 	Loader2,
-	LogOut,
 	Plus,
-	QrCode,
-	ShieldCheck,
-	ShieldOff,
 	Trash,
 	X,
 } from "lucide-react";
@@ -52,8 +49,6 @@ import {
 	TableHeader,
 	TableRow,
 } from "@/components/ui/table";
-import QRCode from "react-qr-code";
-import CopyButton from "@/components/ui/copy-button";
 
 export default function UserCard(props: {
 	session: Session | null;
@@ -63,11 +58,6 @@ export default function UserCard(props: {
 	const { data } = useSession();
 	const session = data || props.session;
 	const [isTerminating, setIsTerminating] = useState<string>();
-	const [isPendingTwoFa, setIsPendingTwoFa] = useState<boolean>(false);
-	const [twoFaPassword, setTwoFaPassword] = useState<string>("");
-	const [twoFactorDialog, setTwoFactorDialog] = useState<boolean>(false);
-	const [twoFactorVerifyURI, setTwoFactorVerifyURI] = useState<string>("");
-	const [isSignOut, setIsSignOut] = useState<boolean>(false);
 	const [emailVerificationPending, setEmailVerificationPending] =
 		useState<boolean>(false);
 	return (
@@ -187,33 +177,7 @@ export default function UserCard(props: {
 			</CardContent>
 			<CardFooter className="gap-2 justify-between items-center">
 				<ChangePassword />
-				<Button
-					className="gap-2 z-10"
-					variant="secondary"
-					onClick={async () => {
-						setIsSignOut(true);
-						await signOut({
-							fetchOptions: {
-								onSuccess() {
-									router.push("/");
-								},
-							},
-						});
-						setIsSignOut(false);
-					}}
-					disabled={isSignOut}
-				>
-					<span className="text-sm">
-						{isSignOut ? (
-							<Loader2 size={15} className="animate-spin" />
-						) : (
-							<div className="flex items-center gap-2">
-								<LogOut size={16} />
-								Sign Out
-							</div>
-						)}
-					</span>
-				</Button>
+				<SignOutBtn />
 			</CardFooter>
 		</Card>
 	);
