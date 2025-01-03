@@ -1,4 +1,12 @@
-Code source : https://github.com/better-auth/better-auth/tree/main/demo/nextjs
+Updates required before using:
+1. update the metadata.ts file to include your website URL and images
+2. update metadata in layout.tsx
+
+
+To generate better auth prisma definition, use this command ``pnpm dlx @better-auth/cli generate``
+Use this command to reset the database (delete all tables and data): ``pnpm dlx prisma db push --force-reset``
+
+Original Code source : https://github.com/better-auth/better-auth/tree/main/demo/nextjs
 
 
 

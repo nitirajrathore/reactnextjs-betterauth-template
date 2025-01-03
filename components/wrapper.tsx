@@ -4,6 +4,8 @@ import Link from "next/link";
 import { ThemeToggle } from "./theme-toggle";
 import { Logo } from "./logo";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import App from "next/app";
+import { AppName } from "./app-name";
 
 export function Wrapper(props: { children: React.ReactNode }) {
 	return (
@@ -13,7 +15,7 @@ export function Wrapper(props: { children: React.ReactNode }) {
 				<Link href="/">
 					<div className="flex gap-2 cursor-pointer">
 						<Logo />
-						<p className="dark:text-white text-black">BETTER-AUTH.</p>
+						<AppName />
 					</div>
 				</Link>
 				<div className="z-50 flex items-center">
