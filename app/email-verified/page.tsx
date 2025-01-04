@@ -1,5 +1,7 @@
-import { Link } from "lucide-react";
+'use client';
+
 import { useSearchParams } from "next/navigation";
+import { SignInLink } from "@/components/sign-in-link";
 
 export default function EmailVerificationPage() {
     const searchParams = useSearchParams();
@@ -12,10 +14,12 @@ export default function EmailVerificationPage() {
                         There was an error verifying your email. Please try again.
                     </div>
                 ) : (
-                    <div className="md:w-[400px]">
-                        Your email has been verified successfully.
-                        <Link href="/sign-in" className="btn btn-primary">Go To Sign In</Link>
-                    </div>
+                    <>
+                        <div className="md:w-[400px] flex items-center justify-center">
+                            Your email has been verified successfully.
+                        </div>
+                        <SignInLink buttonText="Sign In"/>
+                    </>
                 )}
             </div>
         </div>

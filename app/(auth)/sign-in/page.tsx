@@ -3,6 +3,7 @@
 import SignIn from "@/components/sign-in";
 import { SignUp } from "@/components/sign-up";
 import { Tabs } from "@/components/ui/tabs2";
+import VerifyEmail from "@/components/verify-email";
 import { client } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -38,6 +39,11 @@ export default function Page() {
 								title: "Sign Up",
 								value: "sign-up",
 								content: <SignUp />,
+							},
+							{
+								title: "Verify Email",
+								value: "verify-email",
+								content: <VerifyEmail />,
 							},
 						]}
 					/>

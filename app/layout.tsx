@@ -10,11 +10,11 @@ import { createMetadata } from "@/lib/metadata";
 
 export const metadata = createMetadata({
 	title: {
-		template: "%s | Better Auth",
-		default: "Better Auth",
+		template: `%s | ${process.env.NEXT_PUBLIC_APP_NAME}`,
+		default: `${process.env.NEXT_PUBLIC_APP_NAME}`,
 	},
-	description: "The most comprehensive authentication library for typescript",
-	metadataBase: new URL("https://demo.better-auth.com"),
+	description: `${process.env.NEXT_PUBLIC_APP_DESCRIPTION}`,
+	metadataBase: new URL(process.env.NEXT_PUBLIC_APP_METABASE || "http://localhost:3000"),
 });
 
 export default function RootLayout({

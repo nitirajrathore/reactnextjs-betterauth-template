@@ -183,7 +183,7 @@ export function SignUp() {
 					{showEmailSentModal && (
 						<AppDialog
 							title={"Check your email"}
-							description={`We have sent you an email with a link to verify your account. Please check your inbox for ${email} and click on the link to verify your account.`}
+							description={`Please check your inbox for ${email} and click on the link to verify your account.`}
 							open={showEmailSentModal}
 							onClose={() => {
 								setShowEmailSentModal(false);
