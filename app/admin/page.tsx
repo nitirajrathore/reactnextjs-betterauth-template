@@ -80,7 +80,7 @@ export default function AdminDashboard() {
 			const data = await client.admin.listUsers(
 				{
 					query: {
-						limit: 10,
+						limit: 10000,
 						sortBy: "createdAt",
 						sortDirection: "desc",
 					},
