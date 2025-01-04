@@ -109,7 +109,7 @@ export default function SignIn() {
 					>
 						{loading ? <Loader2 size={16} className="animate-spin" /> : "Login"}
 					</Button>
-					<div className="grid grid-cols-4 gap-2">
+					<div className="grid grid-cols-2 gap-2">
 						<Button
 							variant="outline"
 							className="gap-2"
@@ -121,18 +121,7 @@ export default function SignIn() {
 							}}
 						>
 							<GitHubLogoIcon />
-						</Button>
-						{/* <Button
-							variant="outline"
-							className="gap-2"
-							onClick={async () => {
-								await signIn.social({
-									provider: "discord",
-								});
-							}}
-						>
-							<DiscordLogoIcon />
-						</Button> */}
+						</Button>					
 						<Button
 							variant="outline"
 							className=" gap-2"

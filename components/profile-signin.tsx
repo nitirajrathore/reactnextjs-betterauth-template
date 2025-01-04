@@ -1,6 +1,7 @@
 import { useSession } from "@/lib/auth-client";
-import Link from "next/link";
 import {SignOutBtn} from "@/components/sign-out-btn";
+import { SignInLink } from "./sign-in-link";
+import { ProfileBtn } from "./profile-btn";
 
 export function ProfileOrSignIn() {
     const {data:session} = useSession();
@@ -8,11 +9,11 @@ export function ProfileOrSignIn() {
         <div className="flex flex-row justify-center items-center">
             {session ? (
                 <>
-                <Link href="/profile" className="btn btn-secondary">Profile</Link>
+                <ProfileBtn />
                 <SignOutBtn />
-                </>
+                </> 
             ) : (
-                <Link href="/sign-in" className="btn btn-primary">Sign In</Link>
+                <SignInLink buttonText="Sign In" />
             )}
         </div>
     );
