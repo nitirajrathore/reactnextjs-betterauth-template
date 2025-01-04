@@ -1,29 +1,17 @@
 import { betterAuth } from "better-auth";
 import {
-	bearer,
 	admin,
-	multiSession,
-	organization,
-	twoFactor,
 	oneTap,
 	oAuthProxy,
 	openAPI,
-	oidcProvider,
-	createAuthMiddleware,
 } from "better-auth/plugins";
-import { reactInvitationEmail } from "./email/invitation";
 // import { LibsqlDialect } from "@libsql/kysely-libsql";
 import { reactResetPasswordEmail } from "./email/rest-password";
-import { resend } from "./email/resend";
 import { nextCookies } from "better-auth/next-js";
-import { passkey } from "better-auth/plugins/passkey";
 import { prismaAdapter } from "better-auth/adapters/prisma";
 import prisma from "@/prisma/prisma";
+import { sendEmail } from "./email/emailer";
  
-
-const from = process.env.BETTER_AUTH_EMAIL || "delivered@resend.dev";
-const to = process.env.TEST_EMAIL || "";
-
 export const auth = betterAuth({
 	appName: process.env.NEXT_PUBLIC_APP_NAME || "NextJs Template App",
 	database: prismaAdapter(prisma, {
@@ -34,9 +22,8 @@ export const auth = betterAuth({
 	},
 	emailVerification: {
 		sendVerificationEmail: async function ({ user, url }) {
-			const res = await resend.emails.send({
-				from,
-				to: to || user.email,
+			const res = await sendEmail({
+				to: user.email,
 				subject: "Verify your email address",
 				html: `<a href="${url}">Verify your email address</a>`,
 			});
@@ -53,14 +40,13 @@ export const auth = betterAuth({
 	emailAndPassword: {
 		enabled: true,
 		sendResetPassword: async function ({ user, url }) {
-			await resend.emails.send({
-				from,
+			await sendEmail({
 				to: user.email,
 				subject: "Reset your password",
-				react: reactResetPasswordEmail({
+				react:{ element: reactResetPasswordEmail({
 					username: user.email,
 					resetLink: url,
-				}),
+				})},
 			});
 		},
 		requireEmailVerification: true,

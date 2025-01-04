@@ -5,20 +5,20 @@ import {
 	Card,
 	CardContent,
 	CardDescription,
-	CardFooter,
 	CardHeader,
 	CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { PasswordInput } from "@/components/ui/password-input";
-import { DiscordLogoIcon, GitHubLogoIcon } from "@radix-ui/react-icons";
+import { GitHubLogoIcon } from "@radix-ui/react-icons";
 import { useState } from "react";
 import { client, signIn, signUp } from "@/lib/auth-client";
 import Image from "next/image";
 import { Loader2, X } from "lucide-react";
 import { toast } from "sonner";
 import { useRouter } from "next/navigation";
+import AppDialog from "@/components/verification-email-sent";
 
 export function SignUp() {
 	const [firstName, setFirstName] = useState("");
@@ -42,6 +42,7 @@ export function SignUp() {
 		}
 	};
 	const [loading, setLoading] = useState(false);
+	const [showEmailSentModal, setShowEmailSentModal] = useState(false);
 
 	return (
 		<Card className="z-50 rounded-md rounded-t-none max-w-md">
@@ -167,7 +168,7 @@ export function SignUp() {
 										toast.error(ctx.error.message);
 									},
 									onSuccess: async () => {
-										router.push("/dashboard");
+										setShowEmailSentModal(true);
 									},
 								},
 							});
@@ -179,6 +180,18 @@ export function SignUp() {
 							"Create an account"
 						)}
 					</Button>
+					{showEmailSentModal && (
+						<AppDialog
+							title={"Check your email"}
+							description={`We have sent you an email with a link to verify your account. Please check your inbox for ${email} and click on the link to verify your account.`}
+							open={showEmailSentModal}
+							onClose={() => {
+								setShowEmailSentModal(false);
+								router.push("/sign-in")
+							}}
+						/>
+					)}
+
 					<div className="flex items-center gap-2">
 						<Button
 							variant="outline"
@@ -192,18 +205,6 @@ export function SignUp() {
 						>
 							<GitHubLogoIcon />
 						</Button>
-						{/* <Button
-							variant="outline"
-							className="w-full gap-2"
-							onClick={async () => {
-								await signIn.social({
-									provider: "discord",
-									callbackURL: "/dashboard",
-								});
-							}}
-						>
-							<DiscordLogoIcon />
-						</Button> */}
 						<Button
 							variant="outline"
 							className="w-full gap-2"
@@ -238,28 +239,6 @@ export function SignUp() {
 								/>
 							</svg>
 						</Button>
-						{/* <Button
-							variant="outline"
-							className="w-full gap-2"
-							onClick={async () => {
-								await signIn.social({
-									provider: "microsoft",
-									callbackURL: "/dashboard",
-								});
-							}}
-						>
-							<svg
-								xmlns="http://www.w3.org/2000/svg"
-								width="1.2em"
-								height="1.2em"
-								viewBox="0 0 24 24"
-							>
-								<path
-									fill="currentColor"
-									d="M2 3h9v9H2zm9 19H2v-9h9zM21 3v9h-9V3zm0 19h-9v-9h9z"
-								></path>
-							</svg>
-						</Button> */}
 					</div>
 				</div>
 			</CardContent>
