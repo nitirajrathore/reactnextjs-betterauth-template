@@ -2,9 +2,6 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 import UserCard from "./user-card";
-import { OrganizationCard } from "./organization-card";
-import AccountSwitcher from "@/components/account-switch";
-import { Link } from "lucide-react";
 import {AdminBtn} from "@/components/admin-btn";
 
 export default async function ProfilePage() {
@@ -21,14 +18,19 @@ export default async function ProfilePage() {
 		});
 	return (
 		<div className="w-full">
-			<div className="flex gap-4 flex-col">
+			<div className="flex gap-4 flex-col items-end">
+			{session?.user.role === "admin" && (
+				<div>
+					<AdminBtn />
+				</div>
+				)}
+
+				<div className="w-full">
 				<UserCard
 					session={JSON.parse(JSON.stringify(session))}
 					activeSessions={JSON.parse(JSON.stringify(activeSessions))}
 				/>
-				{session?.user.role === "admin" && (
-					<AdminBtn />
-				)}
+				</div>
 			</div>
 		</div>
 	);
